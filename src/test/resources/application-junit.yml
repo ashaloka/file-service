@@ -1,0 +1,19 @@
+profile:
+  name: junit
+
+spring:
+  datasource:
+    driverClassName: net.sourceforge.jtds.jdbc.Driver
+    url: jdbc:sqlserver://localhost:1433;DatabaseName=master;domain=MS
+    username: SA
+    password: Test
+
+fileservice:
+  applicationName: file-service
+  projectBaseRouteName: /fileService/v1/
+  encryptionAlgorithm: PBEWithHMACSHA256AndAES_256
+  encryptionPoolSize: 1
+  encryptionOutputType: base64
+  fileServiceDir: "/Users/gashala/Asha/AshaTemp/employeefiles"
+  filePollerQuery: "?include=.*.txt&sortBy=reverse:file:modified&maxMessagesPerPoll=60000&preMove=staging&move=.completed"
+  backupFileDir: "/Users/gashala/Asha/AshaTemp/backupEmployeeDir"

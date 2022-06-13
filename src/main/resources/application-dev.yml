@@ -1,0 +1,22 @@
+profile:
+  name: dev
+
+spring:
+  datasource:
+    driverClassName: net.sourceforge.jtds.jdbc.Driver
+    url: jdbc:sqlserver://localhost:1433;DatabaseName=master;domain=MS
+    username: SA
+    password: ENC(TFndBYKsLWlUGW+Yf80pyhSCZecCr0DB24z7OFBHKybi095E2B2/+T7qjcEhHP39)
+
+fileservice:
+  applicationName: file-service
+  projectBaseRouteName: /fileService/v1/
+  encryptionAlgorithm: PBEWithHMACSHA256AndAES_256
+  encryptionPoolSize: 1
+  encryptionOutputType: base64
+  fileServiceDir: "/Users/gashala/Asha/AshaTemp/employeefiles"
+  filePollerQuery: "?include=.*.txt&sortBy=reverse:file:modified&maxMessagesPerPoll=60000&preMove=staging&move=.completed"
+  backupFileDir: "/Users/gashala/Asha/AshaTemp/backupEmployeeDir"
+
+management.endpoints.web.exposure:
+  include: info,health,heapdump
