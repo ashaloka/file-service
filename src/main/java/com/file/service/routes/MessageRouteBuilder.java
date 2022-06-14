@@ -87,7 +87,7 @@ public class MessageRouteBuilder extends RouteBuilder {
 
 		from("direct:startFileProcessor")
 				.routeId("startFileProcessorRoute")
-				.log(LoggingLevel.DEBUG,"Started File Reading : ")
+				.log(LoggingLevel.DEBUG,"Started File Reading")
 				.unmarshal(new BindyCsvDataFormat(EmployeeData.class)) //File Header not matches with CSVHeader defined in EmployeeData it will throw error
 				.split(body()).streaming()
 				.aggregate(AggregationStrategies.groupedBody())
