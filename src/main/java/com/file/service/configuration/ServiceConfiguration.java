@@ -3,6 +3,7 @@ package com.file.service.configuration;
 import com.file.service.processor.EmployeeDataConversionProcessor;
 import com.file.service.processor.FileStatusAuditsProcessor;
 import com.file.service.processor.HeartbeatProcessor;
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
@@ -46,5 +47,14 @@ public class ServiceConfiguration extends BeanConfigurationBase {
         return dataSource;
     }
 
+    /*public static void main(String args[]){
+
+        StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
+        encryptor.setPassword("Not4Use"); //token
+        encryptor.setStringOutputType("base64");
+        encryptor.setAlgorithm("PBEWithHMACSHA256AndAES_256");
+
+        System.out.println("Encrypted -->"+encryptor.encrypt("Test")); //give required name
+    }*/
 
 }

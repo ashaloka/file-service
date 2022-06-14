@@ -66,8 +66,29 @@ public class MessageRouteBuilder extends RouteBuilder {
 				.apiProperty("host", "")
 				.apiProperty("schemes", "http,https");
 
+		//service health check API
 		rest("/heartbeat").get().route().routeId("heartbeatRoute").process(heartbeatProcessor);
 
+		/**
+		 * Poller configuration
+		 filePollerQuery: "?include=.*.txt&sortBy=reverse:file:modified&maxMessagesPerPoll=60000&preMove=staging&move=.completed"
+
+		 Poler interval is maxMessagesPerPoll=60000
+		 To pick only text files: include=.*.txt
+		 Pick last modified files: sortBy=reverse:file:modified
+		 Moving file stage after completion only poler will read : preMove=staging&move=.completed
+
+		 */
+
+		/**
+		 * 1. Poller starts polling files based on configuration
+		 * 2. Reads multiple files based on threads configuration
+		 * 3. Added 2 routes one for backup file and next one will start the file processing
+		 * 4. Unmarshalling file using bindy and streaming the file content each stream 10k records
+		 * 5. Added DB routes first employee table will update/insert
+		 * 6. Next other tables - all DB queries paralle to update other respective tables
+		 * 7. FileStatusAudits table updating with details
+		 */
 		//Poller starts every 60 seconds and polls directory for updated files
 		from("file:"+environmentConfiguration.getFileServiceDir()+environmentConfiguration.getFilePollerQuery()+ //Configured in dev YML
 				"&maxMessagesPerPoll="+ Constants.MAX_THREADS) //Parallel Threads - Fast Performance
